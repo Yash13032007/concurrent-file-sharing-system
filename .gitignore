@@ -1,0 +1,14 @@
+.venv/
+ryu-venv/
+__pycache__/
+*.py[cod]
+*.db
+*.sqlite
+*.sqlite3
+.env
+downloads/*
+shared_files/*
+logs/*
+.DS_Store
+.vscode/
+.idea/
