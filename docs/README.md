@@ -157,7 +157,7 @@ concurrent-file-sharing/
 Clone the repository:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/concurrent-file-sharing-system.git
+git clone https://github.com/Yash13032007/concurrent-file-sharing-system.git
 cd concurrent-file-sharing-system
 ```
 
