@@ -145,7 +145,23 @@ The application uses length-prefixed JSON messages for control communication and
 | fileshare.db | SQLite database |
 | demo_files/ | Prepared demonstration input files |
 
-## 11. Shutdown Procedure
+## 11. Dynamic SDN Configuration
+
+| Parameter | Value |
+|---|---|
+| Monitoring Interval | 5 seconds |
+| Traffic Threshold | 5 Mbps |
+| Blocking Duration | 15 seconds |
+| Blocking Rule Priority | 100 |
+
+The Ryu controller monitors OpenFlow traffic statistics.
+When a client exceeds the configured traffic threshold,
+the controller installs a high-priority drop rule.
+
+The temporary blocking rule expires after 15 seconds,
+allowing normal communication to resume.
+
+## 12. Shutdown Procedure
 
 1. Log out from client applications.
 2. Close client terminals.

@@ -65,7 +65,7 @@ It uses OpenFlow 1.3 to communicate with the Ryu controller.
 
 ### Ryu SDN Controller
 
-The Ryu controller implements MAC learning.
+The Ryu controller manages the Open vSwitch using OpenFlow 1.3.
 
 Its responsibilities include:
 
@@ -74,6 +74,11 @@ Its responsibilities include:
 - Flooding packets when the destination MAC is unknown.
 - Forwarding packets to known destination ports.
 - Installing flow entries in the switch.
+- Periodically collecting flow statistics.
+- Calculating traffic rates using byte counters.
+- Detecting clients exceeding the configured traffic threshold.
+- Temporarily blocking excessive traffic using high-priority drop rules.
+- Automatically restoring communication after the blocking period.
 
 ### File Sharing Server
 
@@ -104,7 +109,24 @@ Clients h1 and h2 communicate with the server using TCP.
 | TCP | 5000 | File sharing communication |
 | Ethernet | Layer 2 | Host-to-host frame delivery |
 
-## 7. Topology File
+## 7. Dynamic SDN Traffic Control
+
+The Ryu controller monitors traffic statistics every 5 seconds.
+
+| Parameter | Value |
+|---|---:|
+| Monitoring Interval | 5 seconds |
+| Traffic Threshold | 5 Mbps |
+| Blocking Duration | 15 seconds |
+| Blocking Rule Priority | 100 |
+
+When a client exceeds the configured traffic threshold, the controller installs a high-priority drop rule matching that client's source MAC address.
+
+The rule temporarily blocks the client. After 15 seconds, the blocking rule expires and normal communication is restored.
+
+Other clients can continue communicating during this blocking period.
+
+## 8. Topology File
 
 The Mininet topology is implemented in:
 
@@ -116,7 +138,7 @@ The Ryu controller is implemented in:
 
 The topology uses the name `filesharing`.
 
-## 8. Verification Commands
+## 9. Verification Commands
 
 From the Mininet CLI:
 
